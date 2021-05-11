@@ -1,21 +1,55 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {Local} from "./components/Local";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import {Itunes} from "./components/Itunes/Itunes";
+import {NavigationContainer} from "@react-navigation/native";
+import {createStackNavigator} from "@react-navigation/stack";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+function Main() {
+    const Tab = createBottomTabNavigator();
+    return(
+        <Tab.Navigator
+            tabBarOptions={{
+                activeTintColor: '#E7414D',
+                inactiveTintColor: 'gray',
+            }}
+        >
+            <Tab.Screen
+                options={{
+                    tabBarLabel: 'Local',}}
+                name="Local"
+                component={Local}/>
+            <Tab.Screen
+                options={{
+                    tabBarLabel: 'Itunes',
+                }}
+                name="Itunes"
+                component={Itunes}/>
+        </Tab.Navigator>
+    )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default function App() {
+    const Stack = createStackNavigator();
+
+  return (
+          <NavigationContainer>
+              <Stack.Navigator>
+                  <Stack.Screen
+                      name="Login"
+                      component={Main}
+                      options={{
+                          title: 'Se connecter',
+                          headerStyle: {
+                              backgroundColor: '#1E375A',
+                          },
+                          headerTintColor: '#fff',
+                          headerTitleStyle: {
+                              fontWeight: 'bold',
+                          },
+                      }}
+                  />
+              </Stack.Navigator>
+          </NavigationContainer>
+  );
+}
