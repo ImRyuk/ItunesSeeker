@@ -7,7 +7,9 @@ import {createStackNavigator} from "@react-navigation/stack";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import {Track} from "./components/Itunes/Track";
-
+import { PersistGate } from 'redux-persist/integration/react';
+import { Provider } from 'react-redux';
+import { store, persistor } from './redux/store';
 
 function Main() {
     const Tab = createBottomTabNavigator();
@@ -41,37 +43,41 @@ function Main() {
 export default function App() {
     const Stack = createStackNavigator();
   return (
-          <NavigationContainer>
-              <Stack.Navigator>
-                  <Stack.Screen
-                      name="Main"
-                      component={Main}
-                      options={{
-                          title: 'Itunes Seeker',
-                          headerStyle: {
-                              backgroundColor: '#E7414D',
-                          },
-                          headerTintColor: '#fff',
-                          headerTitleStyle: {
-                              fontWeight: 'bold',
-                          },
-                      }}
-                  />
-                  <Stack.Screen
-                      name="Track"
-                      component={Track}
-                      options={{
-                          title: 'Itunes Track',
-                          headerStyle: {
-                              backgroundColor: '#E7414D',
-                          },
-                          headerTintColor: '#fff',
-                          headerTitleStyle: {
-                              fontWeight: 'bold',
-                          },
-                      }}
-                  />
-              </Stack.Navigator>
-          </NavigationContainer>
+      <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+              <NavigationContainer>
+                  <Stack.Navigator>
+                      <Stack.Screen
+                          name="Main"
+                          component={Main}
+                          options={{
+                              title: 'Itunes Seeker',
+                              headerStyle: {
+                                  backgroundColor: '#E7414D',
+                              },
+                              headerTintColor: '#fff',
+                              headerTitleStyle: {
+                                  fontWeight: 'bold',
+                              },
+                          }}
+                      />
+                      <Stack.Screen
+                          name="Track"
+                          component={Track}
+                          options={{
+                              title: 'Itunes Track',
+                              headerStyle: {
+                                  backgroundColor: '#E7414D',
+                              },
+                              headerTintColor: '#fff',
+                              headerTitleStyle: {
+                                  fontWeight: 'bold',
+                              },
+                          }}
+                      />
+                  </Stack.Navigator>
+              </NavigationContainer>
+          </PersistGate>
+      </Provider>
   );
 }

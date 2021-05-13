@@ -21,7 +21,6 @@ export const Itunes = ({navigation}) => {
     const sendRequest = (title) => {
         axios.get('https://itunes.apple.com/search?term=' + title +'&entity=musicTrack')
             .then(function (response) {
-                console.log(response.data.results)
                 if(response.data.results.length === 0){
                     alert('aucun résultat!')
                 } else {

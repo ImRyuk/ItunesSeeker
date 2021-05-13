@@ -1,6 +1,8 @@
-import React, {useState} from 'react';
+import React, {Component} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {Image} from "react-native-elements";
+import {connect, useDispatch, useSelector} from 'react-redux';
+import {addTrack, check, removeTrack} from "../../redux/actions";
 
 const style = StyleSheet.create({
     container: {
@@ -40,6 +42,24 @@ const TextItem = (props) => {
 }
 
 export const Track = (props) => {
+    const tracks = useSelector(state => state.tracks.tracks)
+    const dispatch = useDispatch();
+
+    console.log(tracks);
+    const add = () => {
+        dispatch(addTrack(track));
+    };
+
+    const remove = () => {
+        dispatch(removeTrack(track));
+    };
+
+    const ifExists = track => {
+        if (tracks.filter(item => item.id === track.trackId).length > 0) {
+            return remove();
+        }
+        return add();
+    };
 
     const track = props.route.params.track;
 
@@ -55,7 +75,7 @@ export const Track = (props) => {
             <TextItem value={track.primaryGenreName}/>
             <TouchableOpacity
                 style={style.button}
-                onPress={() => console.log('pressed')}
+                onPress={() => ifExists(track)}
             >
                 <Text style={style.buttonText}>Ajouter à la librairie</Text>
             </TouchableOpacity>
