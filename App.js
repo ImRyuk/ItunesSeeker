@@ -4,6 +4,10 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {Itunes} from "./components/Itunes/Itunes";
 import {NavigationContainer} from "@react-navigation/native";
 import {createStackNavigator} from "@react-navigation/stack";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import Fontisto from 'react-native-vector-icons/Fontisto';
+import {Track} from "./components/Itunes/Track";
+
 
 function Main() {
     const Tab = createBottomTabNavigator();
@@ -16,13 +20,18 @@ function Main() {
         >
             <Tab.Screen
                 options={{
-                    tabBarLabel: 'Local',}}
+                    tabBarLabel: 'Local',
+                    tabBarIcon: ({ color, size }) => (
+                        <MaterialCommunityIcons name="folder-music" color={color} size={size} />
+                    )}}
                 name="Local"
                 component={Local}/>
             <Tab.Screen
                 options={{
                     tabBarLabel: 'Itunes',
-                }}
+                    tabBarIcon: ({ color, size }) => (
+                        <Fontisto name="applemusic" color={color} size={size} />
+                    )}}
                 name="Itunes"
                 component={Itunes}/>
         </Tab.Navigator>
@@ -31,17 +40,30 @@ function Main() {
 
 export default function App() {
     const Stack = createStackNavigator();
-
   return (
           <NavigationContainer>
               <Stack.Navigator>
                   <Stack.Screen
-                      name="Login"
+                      name="Main"
                       component={Main}
                       options={{
-                          title: 'Se connecter',
+                          title: 'Itunes Seeker',
                           headerStyle: {
-                              backgroundColor: '#1E375A',
+                              backgroundColor: '#E7414D',
+                          },
+                          headerTintColor: '#fff',
+                          headerTitleStyle: {
+                              fontWeight: 'bold',
+                          },
+                      }}
+                  />
+                  <Stack.Screen
+                      name="Track"
+                      component={Track}
+                      options={{
+                          title: 'Itunes Track',
+                          headerStyle: {
+                              backgroundColor: '#E7414D',
                           },
                           headerTintColor: '#fff',
                           headerTitleStyle: {

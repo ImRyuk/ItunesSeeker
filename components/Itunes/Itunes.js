@@ -1,19 +1,33 @@
 import React, {useState} from 'react'
-import {View, Text} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {Search} from "./Search";
 import {SearchedList} from "./SearchedList";
 import axios from "axios";
-import { SafeAreaView } from 'react-native-safe-area-context';
 
-export const Itunes = () => {
+const styles = StyleSheet.create({
+    container: {
+        height:'80%'
+    },
+    content: {
+        alignItems: 'center'
+    },
+    item: {}
+});
+
+export const Itunes = ({navigation}) => {
 
     const [tracks, setTracks] = useState([]);
 
     const sendRequest = (title) => {
         axios.get('https://itunes.apple.com/search?term=' + title +'&entity=musicTrack')
             .then(function (response) {
-                const tracks = response.data.results;
-                setTracks(tracks);
+                console.log(response.data.results)
+                if(response.data.results.length === 0){
+                    alert('aucun résultat!')
+                } else {
+                    const tracks = response.data.results;
+                    setTracks(tracks);
+                }
             })
             .catch(function (error) {
                 console.log(error);
@@ -21,9 +35,9 @@ export const Itunes = () => {
     }
 
     return(
-        <View className="SearchComponent">
-            <Search handleSendRequest={sendRequest} />
-            <SearchedList tracks={tracks}/>
+        <View style={styles.container} className="SearchComponent">
+            <Search style={styles.content} handleSendRequest={sendRequest} />
+            <SearchedList navigation={navigation} tracks={tracks}/>
         </View>
     )
 }
