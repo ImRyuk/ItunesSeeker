@@ -16,10 +16,3 @@ export const removeTrack = track => dispatch => {
         payload: track
     });
 };
-
-export const check = track => dispatch => {
-    dispatch({
-        type: CHECK_IF_EXISTS,
-        payload: track
-    });
-};

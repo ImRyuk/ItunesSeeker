@@ -10,6 +10,7 @@ import {Track} from "./components/Itunes/Track";
 import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from 'react-redux';
 import { store, persistor } from './redux/store';
+import {LocalTrack} from "./components/Itunes/LocalTrack";
 
 function Main() {
     const Tab = createBottomTabNavigator();
@@ -66,6 +67,20 @@ export default function App() {
                           component={Track}
                           options={{
                               title: 'Itunes Track',
+                              headerStyle: {
+                                  backgroundColor: '#E7414D',
+                              },
+                              headerTintColor: '#fff',
+                              headerTitleStyle: {
+                                  fontWeight: 'bold',
+                              },
+                          }}
+                      />
+                      <Stack.Screen
+                          name="LocalTrack"
+                          component={LocalTrack}
+                          options={{
+                              title: 'Local Track',
                               headerStyle: {
                                   backgroundColor: '#E7414D',
                               },

@@ -16,10 +16,10 @@ const tracksReducer = (state = initialState, action) => {
             let primaryGenreName = action.payload.primaryGenreName;
             let trackName = action.payload.trackName;
             let image = action.payload.artworkUrl100;
-            const track = {id: id, name: trackName,artistName: artistName, year: releaseDate, genre: primaryGenreName, image: image}
+            let rating = action.payload.rating;
+            const track = {id: id, name: trackName,artistName: artistName, year: releaseDate, genre: primaryGenreName, image: image, rating: rating}
             return { ...state, tracks: [...state.tracks, track] };
         case REMOVE_FROM_TRACK_LIST:
-            console.log(action.payload.trackId);
             return {
                 ...state,
                 tracks: state.tracks.filter(track => track.id !== action.payload.trackId)

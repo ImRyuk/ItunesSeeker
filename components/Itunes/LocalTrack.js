@@ -37,10 +37,9 @@ const TextItem = (props) => {
     )
 }
 
-export const Track = (props) => {
+export const LocalTrack = (props) => {
     const tracks = useSelector(state => state.tracks.tracks)
     const [track, setTrack] =  useState(props.route.params.track);
-    const [rating, setRating] = useState(5);
     const dispatch = useDispatch();
 
     const ifExists = (track) => {
@@ -68,19 +67,19 @@ export const Track = (props) => {
         <ScrollView style={style.container}>
             <View style={style.view}>
                 <Image
-                    source={{ uri: track.artworkUrl100 }}
+                    source={{ uri: track.image }}
                     style={style.logo}
                 />
-                <Text style={style.primaryText}>{track.trackName}</Text>
+                <Text style={style.primaryText}>{track.name}</Text>
                 <TextItem value={track.artistName}/>
-                <TextItem value={track.releaseDate.slice(0,4)}/>
-                <TextItem value={track.primaryGenreName}/>
+                <TextItem value={track.year}/>
+                <TextItem value={track.genre}/>
                 {ifExists(track)? null :
                     <AirbnbRating
                         onFinishRating={ratingCompleted}
                         count={10}
                         reviews={["Terrible", "Bad", "OK", "Not bad", "Good", "Very Good", "Wow", "Amazing", "Unbelievable", "Jesus"]}
-                        defaultRating={10}
+                        defaultRating={track.rating}
                         size={20}
                     />
                 }

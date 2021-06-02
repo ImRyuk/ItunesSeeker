@@ -42,7 +42,6 @@ export function SearchedList (props) {
 
     return (
         <View className="movies">
-            <Text h2>Ma liste de musiques</Text>
             <FlatList
                 data={tracks}
                 keyExtractor={item => item.trackId.toString()}
